@@ -1,0 +1,116 @@
+/// @description scrSaveConfig()
+/// Saves current config settings
+function scrSaveConfig() {
+
+	ini_open("config.ini");
+
+	// General settings
+	ini_write_real("settings", "mute_music", global.muteMusic);
+	ini_write_real("settings", "volume_level", global.volumeLevel);
+	ini_write_real("settings", "fullscreen_mode", global.fullscreenMode);
+	ini_write_real("settings", "smoothing_mode", global.smoothingMode);
+
+	// Keyboard controls
+	ini_write_real("controls", "left", global.leftButton[0]);
+	ini_write_real("controls", "right", global.rightButton[0]);
+	ini_write_real("controls", "up", global.upButton[0]);
+	ini_write_real("controls", "down", global.downButton[0]);
+	ini_write_real("controls", "jump", global.jumpButton[0]);
+	ini_write_real("controls", "shoot", global.shootButton[0]);
+	ini_write_real("controls", "restart", global.restartButton[0]);
+	ini_write_real("controls", "skip", global.skipButton[0]);
+	ini_write_real("controls", "suicide", global.suicideButton[0]);
+	ini_write_real("controls", "pause", global.pauseButton[0]);
+	ini_write_real("controls", "align_left", global.alignLeftButton[0]);
+	ini_write_real("controls", "align_right", global.alignRightButton[0]);
+
+	if (CONTROLLER_ENABLED) {
+		// Controller options/controls
+		ini_write_real("controller", "index", global.controllerIndex);
+		ini_write_real("controller", "left", global.leftButton[1]);
+		ini_write_real("controller", "right", global.rightButton[1]);
+		ini_write_real("controller", "up", global.upButton[1]);
+		ini_write_real("controller", "down", global.downButton[1]);
+		ini_write_real("controller", "jump", global.jumpButton[1]);
+		ini_write_real("controller", "shoot", global.shootButton[1]);
+		ini_write_real("controller", "restart", global.restartButton[1]);
+		ini_write_real("controller", "skip", global.skipButton[1]);
+		ini_write_real("controller", "suicide", global.suicideButton[1]);
+		ini_write_real("controller", "pause", global.pauseButton[1]);
+		ini_write_real("controller", "align_left", global.alignLeftButton[1]);
+		ini_write_real("controller", "align_right", global.alignRightButton[1]);
+	}
+
+	ini_close();
+}
+
+/// @description scrLoadConfig()
+/// Loads config settings, sets default config if it doesn't exist
+function scrLoadConfig() {
+
+	ini_open("config.ini");
+
+	// General settings
+	global.muteMusic = ini_read_real("settings", "mute_music", false);
+
+	global.volumeLevel = clamp(floor(ini_read_real("settings", "volume_level", 100)), 0, 100);
+	audio_master_gain(global.volumeLevel / 100);
+
+	global.fullscreenMode = ini_read_real("settings", "fullscreen_mode", false);
+	window_set_fullscreen(global.fullscreenMode);
+
+	global.smoothingMode = ini_read_real("settings", "smoothing_mode", false);
+
+	// Keyboard controls
+	global.leftButton[0] = ini_read_real("controls", "left", vk_left);
+	global.rightButton[0] = ini_read_real("controls", "right", vk_right);
+	global.upButton[0] = ini_read_real("controls", "up", vk_up);
+	global.downButton[0] = ini_read_real("controls", "down", vk_down);
+	global.jumpButton[0] = ini_read_real("controls", "jump", vk_shift);
+	global.shootButton[0] = ini_read_real("controls", "shoot", ord("Z"));
+	global.restartButton[0] = ini_read_real("controls", "restart", ord("R"));
+	global.skipButton[0] = ini_read_real("controls", "skip", ord("S"));
+	global.suicideButton[0] = ini_read_real("controls", "suicide", ord("Q"));
+	global.pauseButton[0] = ini_read_real("controls", "pause", ord("P"));
+	global.alignLeftButton[0] = ini_read_real("controls", "align_left", ord("A"));
+	global.alignRightButton[0] = ini_read_real("controls", "align_right", ord("D"));
+
+	// Keyboard menu keys (not rebindable)
+	global.menuLeftButton[0] = vk_left;
+	global.menuRightButton[0] = vk_right;
+	global.menuUpButton[0] = vk_up;
+	global.menuDownButton[0] = vk_down;
+	global.menuAcceptButton[0] = vk_shift;
+	global.menuBackButton[0] = ord("Z");
+	global.menuOptionsButton[0] = vk_enter;
+
+	if (CONTROLLER_ENABLED) {
+		// Controller options/controls
+		global.controllerIndex = ini_read_real("controller", "index", -1); // -1 sets no controller
+		global.leftButton[1] = ini_read_real("controller", "left", gp_padl);
+		global.rightButton[1] = ini_read_real("controller", "right", gp_padr);
+		global.upButton[1] = ini_read_real("controller", "up", gp_padu);
+		global.downButton[1] = ini_read_real("controller", "down", gp_padd);
+		global.jumpButton[1] = ini_read_real("controller", "jump", gp_face1);
+		global.shootButton[1] = ini_read_real("controller", "shoot", gp_face3);
+		global.restartButton[1] = ini_read_real("controller", "restart", gp_face4);
+		global.skipButton[1] = ini_read_real("controller", "skip", gp_face2);
+		global.suicideButton[1] = ini_read_real("controller", "suicide", gp_select);
+		global.pauseButton[1] = ini_read_real("controller", "pause", gp_start);
+		global.alignLeftButton[1] = ini_read_real("controller", "align_left", gp_shoulderl);
+		global.alignRightButton[1] = ini_read_real("controller", "align_right", gp_shoulderr);
+
+		// Controller menu buttons (not rebindable)
+		global.menuLeftButton[1] = gp_padl;
+		global.menuRightButton[1] = gp_padr;
+		global.menuUpButton[1] = gp_padu;
+		global.menuDownButton[1] = gp_padd;
+		global.menuAcceptButton[1] = gp_face1;
+		global.menuBackButton[1] = gp_face2;
+		global.menuOptionsButton[1] = gp_select;
+	}
+
+	ini_close();
+
+	scrSaveConfig(); // Save the current config settings
+}
