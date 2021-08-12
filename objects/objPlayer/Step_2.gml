@@ -100,17 +100,22 @@ if (PLAYER_ANIMATION_FIX) {
 			
 			if ((L || R) && !frozen) {
 				sprite_index = sprPlayerRun;
+				image_speed = 0.5;
 			} else {
 				sprite_index = sprPlayerIdle;
+				image_speed = 0.2;
 			}
 		} else { // In the air
 			if ((vspeed * global.grav) < 0) {
 				sprite_index = sprPlayerJump;
+				image_speed = 0.5;
 			} else {
 				sprite_index = sprPlayerFall;
+				image_speed = 0.5;
 			}
 		}
 	} else { // Touching a vine
 		sprite_index = sprPlayerSlide;
+		image_speed = 0.5;
 	}
 }

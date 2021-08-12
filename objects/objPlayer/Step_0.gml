@@ -40,6 +40,7 @@ if (h != 0) { // Player is moving
 	}
 	
     sprite_index = sprPlayerRun;
+	image_speed = 0.5;
 } else { // Player is not moving
     if (slipBlockTouching == noone) { // Not touching a slip block, stop immediately
         hspeed = 0;
@@ -60,6 +61,7 @@ if (h != 0) { // Player is moving
     }
   
     sprite_index = sprPlayerIdle;
+	image_speed = 0.2;
 }
 
 // Check if standing on a platform
@@ -123,6 +125,7 @@ if (onVineL || onVineR) {
     
     vspeed = 2 * global.grav;
     sprite_index = sprPlayerSlide;
+	image_speed = 0.5;
     
     // Check if moving away from the vine
 	if (onVineL && scrButtonCheckPressed(global.rightButton)) || (onVineR && scrButtonCheckPressed(global.leftButton)) {

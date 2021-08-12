@@ -9,6 +9,7 @@ gravity = 0.4 * global.grav; // Sets the player's gravity
 djump = 1; // Allow the player to double jump as soon as he spawns
 maxHSpeed = 3; // Max horizontal speed
 maxVSpeed = 9; // Max vertical speed
+image_speed = 0.2; // Initial speed of animation
 onPlatform = false; // Sets if the player is currently standing on a platform
 
 xScale = 1; // Sets the direction the player is facing (1 is facing right, -1 is facing left)
