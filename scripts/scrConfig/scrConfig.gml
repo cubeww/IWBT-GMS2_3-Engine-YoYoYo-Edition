@@ -1,5 +1,5 @@
-/// @description scrSaveConfig()
-/// Saves current config settings
+/// @function scrSaveConfig()
+/// @description Saves current config settings
 function scrSaveConfig() {
 
 	ini_open("config.ini");
@@ -44,8 +44,8 @@ function scrSaveConfig() {
 	ini_close();
 }
 
-/// @description scrLoadConfig()
-/// Loads config settings, sets default config if it doesn't exist
+/// @function scrLoadConfig()
+/// @description Loads config settings, sets default config if it doesn't exist
 function scrLoadConfig() {
 
 	ini_open("config.ini");
