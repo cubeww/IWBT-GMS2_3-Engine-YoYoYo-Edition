@@ -1,34 +1,8 @@
 /// @description Handle player collision
 
-// Check platform collision
-var platform = instance_place(x,y,objPlatform);
-if (platform != noone) {
-	if (global.grav == 1) { // Check if on top of the platform (when right-side up)
-	    if (y-vspeed/2 <= platform.y) {
-	        if (platform.vspeed >= 0) {
-	            y = platform.y-9; // Snap to the platform
-	            vspeed = platform.vspeed;
-	        }
-        
-	        onPlatform = true;
-	        djump = 1;
-	    }
-	} else { // Check if on top of the platform (when flipped)
-	    if (y-vspeed/2 >= platform.y+platform.sprite_height-1) {
-	        if (platform.yspeed <= 0) {
-	            y = platform.y+platform.sprite_height+8; // Snap to the platform
-	            vspeed = platform.yspeed;
-	        }
-        
-	        onPlatform = true;
-	        djump = 1;
-	    }
-	}
-}
-
 // Check block collision
 var block = instance_place(x,y,objBlock);
-if (block) {
+if (block != noone) {
 	if (block.solid) {
 		x = xprevious;
 		y = yprevious;
@@ -72,10 +46,32 @@ if (block) {
 	if (block.solid) {
 		x += hspeed;
 		y += vspeed;
-		if (place_meeting(x,y,objBlock)) {
-			x = xprevious;
-			y = yprevious;
-		}
+	}
+}
+
+// Check platform collision
+var platform = instance_place(x,y,objPlatform);
+if (platform != noone) {
+	if (global.grav == 1) { // Check if on top of the platform (when right-side up)
+	    if (y-vspeed/2 <= platform.y) {
+	        if (platform.vspeed >= 0) {
+	            y = platform.y-9; // Snap to the platform
+	            vspeed = platform.vspeed;
+	        }
+        
+	        onPlatform = true;
+	        djump = 1;
+	    }
+	} else { // Check if on top of the platform (when flipped)
+	    if (y-vspeed/2 >= platform.y+platform.sprite_height-1) {
+	        if (platform.yspeed <= 0) {
+	            y = platform.y+platform.sprite_height+8; // Snap to the platform
+	            vspeed = platform.yspeed;
+	        }
+        
+	        onPlatform = true;
+	        djump = 1;
+	    }
 	}
 }
 
