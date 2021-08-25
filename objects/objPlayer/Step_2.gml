@@ -80,6 +80,16 @@ with (objPlatform) {
 	}
 }
 
+// Check save collision
+with (objSave) {
+	event_user(1);
+}
+
+// Check water collision
+with (objWaterParent) {
+	event_user(0);
+}
+
 // Check killer collision
 if (place_meeting(x,y,objPlayerKiller)) {
 	scrKillPlayer();
