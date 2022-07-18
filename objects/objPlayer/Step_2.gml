@@ -80,9 +80,9 @@ with (objPlatform) {
 	}
 }
 
-// Check save collision
-with (objSave) {
-	event_user(1);
+// Check killer collision
+if (place_meeting(x,y,objPlayerKiller)) {
+	scrKillPlayer();
 }
 
 // Check water collision
@@ -90,9 +90,14 @@ with (objWaterParent) {
 	event_user(0);
 }
 
-// Check killer collision
-if (place_meeting(x,y,objPlayerKiller)) {
-	scrKillPlayer();
+// Check save collision
+with (objSave) {
+	event_user(1);
+}
+
+// Check room changer collision
+with (objRoomChanger) {
+	event_user(0);
 }
 
 // Check if player left the room and update player sprite (if set to)
