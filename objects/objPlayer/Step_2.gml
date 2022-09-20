@@ -100,6 +100,11 @@ with (objRoomChanger) {
 	event_user(0);
 }
 
+// Check warp next collision
+with (objWarpNext) {
+	event_user(0);
+}
+
 // Check if player left the room and update player sprite (if set to)
 if ((x < 0 || x > room_width || y < 0 || y > room_height) && global.edgeDeath) {
     scrKillPlayer();
